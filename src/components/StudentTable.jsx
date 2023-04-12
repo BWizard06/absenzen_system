@@ -11,7 +11,7 @@ const students = [
         class: "3A",
         latestAbsence: "2023-04-01",
         absenceCount: 2,
-        email: "max.mustermann@example.com",
+        email: "hansjuergen@gmail.com",
         absences: [
             {
                 date: "2023-04-01",
