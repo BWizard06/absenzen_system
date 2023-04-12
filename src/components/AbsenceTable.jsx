@@ -77,7 +77,7 @@ const AbsenceTable = ({ absences, addAbsence, deleteAbsence }) => {
                     </div>
                     <div className="col-md-6">
                         <div className="form-group">
-                            <label>Lektionen:</label>
+                            <label>Anzahl Lektionen:</label>
                             <input
                                 type="number"
                                 name="lesson"
