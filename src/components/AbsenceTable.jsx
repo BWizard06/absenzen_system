@@ -32,9 +32,9 @@ const AbsenceTable = ({ absences, addAbsence, deleteAbsence }) => {
         <div>
             <table className="table table-bordered">
                 <thead className="thead-dark">
-                    <tr>
+                    <tr className="bg-gray-100">
                         <th>Datum</th>
-                        <th>Lektion</th>
+                        <th>Lektionen</th>
                         <th>Status</th>
                         <th>Grund</th>
                         <th>Aktion</th>
@@ -60,8 +60,8 @@ const AbsenceTable = ({ absences, addAbsence, deleteAbsence }) => {
                 </tbody>
             </table>
 
-            <h5 className="mt-4">Neue Absenz hinzufügen:</h5>
-            <form onSubmit={handleSubmit} className="mt-4">
+            <h5 className="mt-5 font-bold">Neue Absenz hinzufügen:</h5>
+            <form onSubmit={handleSubmit} className="mt-1">
                 <div className="row">
                     <div className="col-md-6">
                         <div className="form-group">
@@ -77,7 +77,7 @@ const AbsenceTable = ({ absences, addAbsence, deleteAbsence }) => {
                     </div>
                     <div className="col-md-6">
                         <div className="form-group">
-                            <label>Lektion:</label>
+                            <label>Lektionen:</label>
                             <input
                                 type="number"
                                 name="lesson"
@@ -127,7 +127,7 @@ const AbsenceTable = ({ absences, addAbsence, deleteAbsence }) => {
                         <div className="form-group">
                             <Button
                                 type="submit "
-                                className="bg-primary text-white hover:bg-primary-dark"
+                                className="bg-primary mt-2 text-white hover:bg-primary-dark"
                             >
                                 Hinzufügen
                             </Button>

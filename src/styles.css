@@ -5,3 +5,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*.modal-lg {
+    width: 800px;
+}
+*/
+.custom-modal {
+    max-width: 800px;
+}
