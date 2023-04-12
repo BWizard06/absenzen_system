@@ -196,7 +196,7 @@ const StudentTable = () => {
                             />
                         </div>
                         <div className="ml-[5%] mt-[13.5%] w-[40%]">
-                            <p className="font-bold">Filter</p>
+                            <p className="font-bold">Filter:</p>
                             <hr />
                             <Filter />
                         </div>
