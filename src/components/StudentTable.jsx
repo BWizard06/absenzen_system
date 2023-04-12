@@ -6,8 +6,8 @@ import Filter from "./Filter.jsx";
 const students = [
     {
         id: 1,  
-        firstName: "Max",
-        lastName: "Mustermann",
+        firstName: "Hans",
+        lastName: "Jürgen",
         class: "3A",
         latestAbsence: "2023-04-01",
         absenceCount: 2,
