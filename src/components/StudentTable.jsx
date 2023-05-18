@@ -5,12 +5,12 @@ import Filter from "./Filter.jsx";
 
 const students = [
     {
-        id: 1,  
+        id: 1,
         firstName: "Hans",
         lastName: "Jürgen",
-        class: "3A",
+        class: "IM21a",
         latestAbsence: "2023-04-01",
-        absenceCount: 2,
+        absenceCount: 3,
         email: "hansjuergen@gmail.com",
         absences: [
             {
@@ -36,11 +36,37 @@ const students = [
     },
     {
         id: 2,
-        firstName: "Max",
-        lastName: "Mustermann",
-        class: "3A",
+        firstName: "Ben",
+        lastName: "Brändle",
+        class: "IM21a",
         latestAbsence: "2023-04-01",
         absenceCount: 2,
+        email: "max.mustermann@example.com",
+        absences: [
+            {
+                date: "2023-03-28",
+                lesson: 2,
+                status: "Entschuldigt",
+                reason: "Arzttermin",
+            },
+            
+            {
+                date: "2023-03-28",
+                lesson: 2,
+                status: "Entschuldigt",
+                reason: "Arzttermin",
+            },
+            // Fügen Sie hier weitere Absenz-Objekte hinzu
+            // Fügen Sie hier weitere Absenz-Objekte hinzu
+        ],
+    },
+    {
+        id: 3,
+        firstName: "David",
+        lastName: "Zettler",
+        class: "IM21a",
+        latestAbsence: "2023-04-01",
+        absenceCount: 3,
         email: "max.mustermann@example.com",
         absences: [
             {
@@ -56,23 +82,6 @@ const students = [
                 reason: "Arzttermin",
             },
             // Fügen Sie hier weitere Absenz-Objekte hinzu
-        ],
-    },
-    {
-        id: 3,
-        firstName: "Max",
-        lastName: "Mustermann",
-        class: "3A",
-        latestAbsence: "2023-04-01",
-        absenceCount: 2,
-        email: "max.mustermann@example.com",
-        absences: [
-            {
-                date: "2023-04-01",
-                lesson: 4,
-                status: "Abwesend",
-                reason: "Krank",
-            },
             {
                 date: "2023-03-28",
                 lesson: 2,
@@ -84,11 +93,11 @@ const students = [
     },
     {
         id: 4,
-        firstName: "Max",
-        lastName: "Mustermann",
-        class: "3A",
+        firstName: "Dominic",
+        lastName: "Obrist",
+        class: "IM21a",
         latestAbsence: "2023-04-01",
-        absenceCount: 2,
+        absenceCount: 1,
         email: "max.mustermann@example.com",
         absences: [
             {
@@ -96,14 +105,18 @@ const students = [
                 lesson: 4,
                 status: "Abwesend",
                 reason: "Krank",
-            },
-            {
-                date: "2023-03-28",
-                lesson: 2,
-                status: "Entschuldigt",
-                reason: "Arzttermin",
-            },
-            // Fügen Sie hier weitere Absenz-Objekte hinzu
+            }
+        ],
+    },
+    {
+        id: 5,
+        firstName: "Alessio",
+        lastName: "Lama",
+        class: "IM21a",
+        latestAbsence: "2023-04-01",
+        absenceCount: 0,
+        email: "max.mustermann@example.com",
+        absences: [
         ],
     },
     // Fügen Sie hier weitere Schüler-Objekte hinzu
@@ -112,6 +125,45 @@ const students = [
 const StudentTable = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
+    const [filteredStudents, setFilteredStudents] = useState(students);
+    const [searchValue, setSearchValue] = useState("");
+
+    const handleSearch = () => {
+        const searchName = prompt("Suche nach Namen");
+        setSearchValue(searchName);
+        if (searchName) {
+            const filteredStudents = students.filter(
+                (student) =>
+                    student.firstName
+                        .toLowerCase()
+                        .includes(searchName.toLowerCase()) ||
+                    student.lastName
+                        .toLowerCase()
+                        .includes(searchName.toLowerCase())
+            );
+            setFilteredStudents(filteredStudents);
+        } else {
+            setFilteredStudents(students);
+        }
+    };
+    const handleCancelSearch = () => {
+        const searchName = "";
+        setSearchValue(searchName);
+        if (searchName) {
+            const filteredStudents = students.filter(
+                (student) =>
+                    student.firstName
+                        .toLowerCase()
+                        .includes(searchName.toLowerCase()) ||
+                    student.lastName
+                        .toLowerCase()
+                        .includes(searchName.toLowerCase())
+            );
+            setFilteredStudents(filteredStudents);
+        } else {
+            setFilteredStudents(students);
+        }
+    };
 
     const handleClose = () => setShowModal(false);
     const handleShow = (student) => {
@@ -142,14 +194,47 @@ const StudentTable = () => {
                 <thead className="thead-dark">
                     <tr>
                         <th scope="col">Profilbild</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">
+                            <div className="flex w-[100%] justify-between">
+                                <div>Name</div>
+                                <div className="flex items-center">
+                                    {searchValue && (
+                                        <div className="mr-2">{`Suche nach "${searchValue}"`}</div>
+                                    )}
+                                    {!searchValue && (
+                                        <div
+                                        className="bg-blue-200 px-2 rounded-lg hover:cursor-pointer"
+                                        onClick={handleSearch}
+                                    >
+                                        🔍
+                                    </div>
+                                    )}
+                                    {searchValue && (
+                                        <div
+                                        className="bg-blue-200 px-2 rounded-l-lg hover:cursor-pointer"
+                                        onClick={handleSearch}
+                                    >
+                                        🔍
+                                    </div>
+                                    )}
+                                    {searchValue && (
+                                        <div
+                                            className="bg-red-200 px-2 rounded-r-lg hover:cursor-pointer"
+                                            onClick={handleCancelSearch}
+                                        >
+                                            ❌
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </th>
                         <th scope="col">Klasse</th>
                         <th scope="col">Neuste Absenz</th>
                         <th scope="col">Anzahl Absenzen</th>
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                    {students.map((student, index) => (
+                    {filteredStudents.map((student, index) => (
                         <tr
                             key={student.id}
                             className={index % 2 === 1 ? "bg-gray-100" : ""}
@@ -170,7 +255,7 @@ const StudentTable = () => {
             </table>
 
             <Modal show={showModal} onHide={handleClose} className="modal-lg">
-                <Modal.Header closeButton>
+                <Modal.Header closeButton className="custom-close-button">
                     <Modal.Title>
                         {selectedStudent?.firstName} {selectedStudent?.lastName}
                     </Modal.Title>
@@ -196,18 +281,20 @@ const StudentTable = () => {
                             />
                         </div>
                         <div className="ml-[5%] mt-[13.5%] w-[40%]">
-                            <p className="font-bold">Filter:</p>
+                            <p className="font-bold">
+                                Filter für Absenzentabelle:
+                            </p>
                             <hr />
-                            <Filter />
+                            <Filter deleteAbsence={deleteAbsence} />
                         </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button
-                        className="bg-primary text-white hover:bg-primary-dark"
+                        className="bg-secondary btn-outline-light text-white hover:bg-primary-dark"
                         onClick={handleClose}
                     >
-                        Schließen
+                        Speichern
                     </Button>
                 </Modal.Footer>
             </Modal>

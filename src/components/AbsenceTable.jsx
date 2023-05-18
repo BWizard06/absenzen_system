@@ -8,6 +8,7 @@ const AbsenceTable = ({ absences, addAbsence, deleteAbsence }) => {
         status: "",
         reason: "",
     });
+    
 
     const handleChange = (e) => {
         setNewAbsence({ ...newAbsence, [e.target.name]: e.target.value });
@@ -26,6 +27,20 @@ const AbsenceTable = ({ absences, addAbsence, deleteAbsence }) => {
         } else {
             alert("Bitte füllen Sie alle Felder aus.");
         }
+    };
+
+    const disableNonWednesdays = (date) => {
+        const day = date.getDay();
+        return day !== 3;
+    };
+
+    const handleDateChange = (e) => {
+        if (disableNonWednesdays(new Date(e.target.value))) {
+            e.target.setCustomValidity("Please select a Wednesday");
+        } else {
+            e.target.setCustomValidity("");
+        }
+        handleChange(e);
     };
 
     return (
@@ -70,8 +85,10 @@ const AbsenceTable = ({ absences, addAbsence, deleteAbsence }) => {
                                 type="date"
                                 name="date"
                                 value={newAbsence.date}
-                                onChange={handleChange}
+                                onChange={handleDateChange}
                                 className="form-control"
+                                min={new Date().toISOString().split("T")[0]}
+                                step="7"
                             />
                         </div>
                     </div>
@@ -126,8 +143,8 @@ const AbsenceTable = ({ absences, addAbsence, deleteAbsence }) => {
                     <div className="col-md-12">
                         <div className="form-group">
                             <Button
-                                type="submit "
-                                className="bg-primary mt-2 text-white hover:bg-primary-dark"
+                                type="submit"
+                                className="btn-outline-light bg-success mt-2 text-white hover:bg-primary-dark"
                             >
                                 Hinzufügen
                             </Button>

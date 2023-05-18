@@ -1,6 +1,20 @@
+import React from "react";
 import { Button } from "react-bootstrap";
 
-const Filter = () => {
+const Filter = ({ deleteAbsence }) => {
+    const disableNonWednesdays = (date) => {
+        const day = date.getDay();
+        return day !== 3;
+    };
+
+    const handleChange = (e) => {
+        if (disableNonWednesdays(new Date(e.target.value))) {
+            e.target.setCustomValidity("Please select a Wednesday");
+        } else {
+            e.target.setCustomValidity("");
+        }
+    };
+
     return (
         <div className="mt-1 w-[100%]">
             <div className="row">
@@ -11,13 +25,22 @@ const Filter = () => {
                             type="date"
                             name="date"
                             className="form-control"
+                            min={new Date().toISOString().split("T")[0]}
+                            onInput={handleChange}
+                            step="7"
                         />
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Bis:</label>
-                        <input type="date" className="form-control" />
+                        <input
+                            type="date"
+                            className="form-control"
+                            min={new Date().toISOString().split("T")[0]}
+                            onInput={handleChange}
+                            step="7"
+                        />
                     </div>
                 </div>
             </div>
